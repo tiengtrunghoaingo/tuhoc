@@ -48,12 +48,12 @@ export const FloatingSidebar: React.FC<FloatingSidebarProps> = ({
   };
 
   return (
-    <aside aria-label="Quick Actions" className="fixed right-3 sm:right-5 bottom-6 z-40 flex flex-col items-center gap-2.5">
+    <aside aria-label="Quick Actions" className="fixed right-3 sm:right-5 bottom-20 sm:bottom-6 z-30 flex flex-col items-center gap-2 sm:gap-2.5">
       
-      {/* AI Tutor Floating Button with Glow */}
+      {/* AI Tutor Floating Button with Glow (Desktop only, mobile has it in BottomNav) */}
       <button
         onClick={onOpenAiTutor}
-        className="relative group p-3 bg-gradient-to-tr from-red-600 to-rose-600 text-white rounded-2xl shadow-lg shadow-red-500/30 hover:shadow-red-500/50 hover:scale-110 hover:-translate-y-1 active:scale-95 transition-all duration-200"
+        className="hidden md:flex relative group p-3 bg-gradient-to-tr from-red-600 to-rose-600 text-white rounded-2xl shadow-lg shadow-red-500/30 hover:shadow-red-500/50 hover:scale-110 hover:-translate-y-1 active:scale-95 transition-all duration-200"
         title="Trợ lý AI Hoài Ngô"
       >
         <div className="relative">
@@ -71,7 +71,7 @@ export const FloatingSidebar: React.FC<FloatingSidebarProps> = ({
       {/* Chép chính tả Quick Button */}
       <button
         onClick={onOpenDictation}
-        className="relative group p-2.5 bg-white text-slate-700 hover:text-red-600 hover:bg-red-50 border border-slate-200 rounded-xl shadow-md hover:scale-105 hover:-translate-y-1 active:scale-95 transition-all duration-200"
+        className="hidden md:flex relative group p-2.5 bg-white text-slate-700 hover:text-red-600 hover:bg-red-50 border border-slate-200 rounded-xl shadow-md hover:scale-105 hover:-translate-y-1 active:scale-95 transition-all duration-200"
         title="Luyện Chép chính tả"
       >
         <Headphones className="w-5 h-5 text-red-600" />
@@ -83,16 +83,16 @@ export const FloatingSidebar: React.FC<FloatingSidebarProps> = ({
       {/* Sổ tay từ vựng Notebook */}
       <button
         onClick={onOpenNotebook}
-        className="relative group p-2.5 bg-white text-slate-700 hover:text-amber-600 hover:bg-amber-50 border border-slate-200 rounded-xl shadow-md hover:scale-105 hover:-translate-y-1 active:scale-95 transition-all duration-200"
+        className="relative group p-2.5 sm:p-2.5 bg-white text-slate-700 hover:text-amber-600 hover:bg-amber-50 border border-slate-200 rounded-xl shadow-md hover:scale-105 hover:-translate-y-1 active:scale-95 transition-all duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center"
         title="Sổ tay từ vựng"
       >
-        <Bookmark className="w-5 h-5 text-amber-500" />
+        <Bookmark className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500" />
         {savedCount > 0 && (
           <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
             {savedCount}
           </span>
         )}
-        <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-900 text-white text-xs font-semibold rounded-lg shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+        <span className="hidden md:inline-block absolute right-full mr-3 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-900 text-white text-xs font-semibold rounded-lg shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
           📖 Sổ tay từ vựng ({savedCount})
         </span>
       </button>
@@ -101,11 +101,11 @@ export const FloatingSidebar: React.FC<FloatingSidebarProps> = ({
       {isAdmin && (
         <button
           onClick={onOpenAccountSheet}
-          className="relative group p-2.5 bg-white text-slate-700 hover:text-red-700 hover:bg-red-50 border border-red-200 rounded-xl shadow-md hover:scale-105 hover:-translate-y-1 active:scale-95 transition-all duration-200"
+          className="relative group p-2.5 bg-white text-slate-700 hover:text-red-700 hover:bg-red-50 border border-red-200 rounded-xl shadow-md hover:scale-105 hover:-translate-y-1 active:scale-95 transition-all duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center"
           title="Bảng Sheet Thống kê tài khoản & tiến độ học (Admin)"
         >
-          <FileSpreadsheet className="w-5 h-5 text-red-600" />
-          <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-900 text-white text-xs font-semibold rounded-lg shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none flex items-center gap-1.5">
+          <FileSpreadsheet className="w-4 h-4 sm:w-5 sm:h-5 text-red-600" />
+          <span className="hidden md:flex absolute right-full mr-3 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-900 text-white text-xs font-semibold rounded-lg shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none items-center gap-1.5">
             📊 Sheet Thống Kê (Admin)
           </span>
         </button>
@@ -114,11 +114,11 @@ export const FloatingSidebar: React.FC<FloatingSidebarProps> = ({
       {/* Settings Modal */}
       <button
         onClick={onOpenSettings}
-        className="relative group p-2.5 bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-slate-200 rounded-xl shadow-md hover:scale-105 hover:-translate-y-1 active:scale-95 transition-all duration-200"
+        className="relative group p-2.5 bg-white text-slate-600 hover:text-slate-900 hover:bg-slate-50 border border-slate-200 rounded-xl shadow-md hover:scale-105 hover:-translate-y-1 active:scale-95 transition-all duration-200 min-w-[40px] min-h-[40px] flex items-center justify-center"
         title="Cài đặt hiển thị"
       >
-        <Settings className="w-5 h-5" />
-        <span className="absolute right-full mr-3 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-900 text-white text-xs font-semibold rounded-lg shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+        <Settings className="w-4 h-4 sm:w-5 sm:h-5" />
+        <span className="hidden md:inline-block absolute right-full mr-3 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-900 text-white text-xs font-semibold rounded-lg shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
           ⚙️ Cài đặt học tập
         </span>
       </button>
@@ -127,7 +127,7 @@ export const FloatingSidebar: React.FC<FloatingSidebarProps> = ({
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="p-2.5 bg-slate-900 text-white rounded-xl shadow-md hover:bg-red-600 active:scale-95 transition-all animate-in fade-in zoom-in-75"
+          className="p-2 sm:p-2.5 bg-slate-900 text-white rounded-xl shadow-md hover:bg-red-600 active:scale-95 transition-all animate-in fade-in zoom-in-75 min-w-[40px] min-h-[40px] flex items-center justify-center"
           title="Lên đầu trang"
         >
           <ArrowUp className="w-4 h-4" />

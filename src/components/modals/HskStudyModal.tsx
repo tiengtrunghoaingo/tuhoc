@@ -91,52 +91,52 @@ export const HskStudyModal: React.FC<HskStudyModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/70 backdrop-blur-xs animate-in fade-in">
-      <div className="bg-white rounded-3xl w-full max-w-4xl max-h-[90vh] shadow-2xl border border-red-100 flex flex-col overflow-hidden animate-in zoom-in-95">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 bg-slate-950/70 backdrop-blur-xs animate-in fade-in">
+      <div className="bg-white rounded-2xl sm:rounded-3xl w-full max-w-4xl max-h-[94dvh] sm:max-h-[90vh] shadow-2xl border border-red-100 flex flex-col overflow-hidden animate-in zoom-in-95">
         
         {/* Modal Header */}
-        <div className="px-6 py-4 border-b border-red-100 flex items-center justify-between bg-gradient-to-r from-red-50/80 to-rose-50/80">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-600 to-rose-700 text-white flex items-center justify-center font-bold shadow-md shadow-red-500/20">
-              <BookOpen className="w-5 h-5" />
+        <div className="px-4 py-3 sm:px-6 sm:py-4 border-b border-red-100 flex items-center justify-between bg-gradient-to-r from-red-50/80 to-rose-50/80">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-red-600 to-rose-700 text-white flex items-center justify-center font-bold shadow-md shadow-red-500/20 shrink-0">
+              <BookOpen className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <h3 className="font-extrabold text-slate-900 text-lg flex items-center gap-2">
-                Giáo Trình HSK & Từ Vựng Chuẩn 3.0 Hoài Ngô
-                <span className="text-xs px-2 py-0.5 bg-red-100 text-red-700 font-bold rounded-full border border-red-200">
+              <h3 className="font-extrabold text-slate-900 text-sm sm:text-lg flex items-center gap-1.5 sm:gap-2">
+                <span>HSK Hoài Ngô</span>
+                <span className="text-[10px] sm:text-xs px-2 py-0.5 bg-red-100 text-red-700 font-bold rounded-full border border-red-200">
                   Cấp {activeLevel}
                 </span>
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-[11px] text-slate-500 hidden sm:block">
                 Luyện flashcard, phát âm giọng chuẩn Bắc Kinh, ví dụ câu thực tế
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2">
             {/* View mode toggle */}
-            <div className="bg-slate-200/70 p-1 rounded-xl flex items-center text-xs font-semibold">
+            <div className="bg-slate-200/70 p-0.5 sm:p-1 rounded-xl flex items-center text-[11px] sm:text-xs font-semibold">
               <button
                 onClick={() => setViewMode('flashcard')}
-                className={`px-3 py-1 rounded-lg transition-all ${
-                  viewMode === 'flashcard' ? 'bg-white text-red-600 shadow-xs' : 'text-slate-600'
+                className={`px-2.5 sm:px-3 py-1 rounded-lg transition-all min-h-[32px] ${
+                  viewMode === 'flashcard' ? 'bg-white text-red-600 shadow-xs font-bold' : 'text-slate-600'
                 }`}
               >
-                Flashcard
+                Thẻ
               </button>
               <button
                 onClick={() => setViewMode('list')}
-                className={`px-3 py-1 rounded-lg transition-all ${
-                  viewMode === 'list' ? 'bg-white text-red-600 shadow-xs' : 'text-slate-600'
+                className={`px-2.5 sm:px-3 py-1 rounded-lg transition-all min-h-[32px] ${
+                  viewMode === 'list' ? 'bg-white text-red-600 shadow-xs font-bold' : 'text-slate-600'
                 }`}
               >
-                Danh sách
+                DS
               </button>
             </div>
 
             <button
               onClick={onClose}
-              className="p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-colors"
+              className="p-1.5 sm:p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl transition-colors min-w-[36px] min-h-[36px] flex items-center justify-center"
             >
               <X className="w-5 h-5" />
             </button>
@@ -144,8 +144,8 @@ export const HskStudyModal: React.FC<HskStudyModalProps> = ({
         </div>
 
         {/* Level Navigation Tabs & Search */}
-        <div className="px-6 py-3 border-b border-slate-100 bg-white flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-1.5 overflow-x-auto">
+        <div className="px-3 sm:px-6 py-2.5 border-b border-slate-100 bg-white flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 sm:gap-3">
+          <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto no-scrollbar py-0.5">
             {([1, 2, 3, 4, 5, 6] as HskLevel[]).map((lvl) => (
               <button
                 key={lvl}
@@ -154,7 +154,7 @@ export const HskStudyModal: React.FC<HskStudyModalProps> = ({
                   setCurrentIndex(0);
                   setIsFlipped(false);
                 }}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                className={`px-3 sm:px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all shrink-0 min-h-[36px] ${
                   activeLevel === lvl
                     ? 'bg-red-600 text-white shadow-sm shadow-red-500/30'
                     : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -165,11 +165,11 @@ export const HskStudyModal: React.FC<HskStudyModalProps> = ({
             ))}
           </div>
 
-          <div className="relative flex-1 max-w-xs">
+          <div className="relative w-full sm:max-w-xs">
             <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Tìm theo chữ Hán, pinyin, nghĩa..."
+              placeholder="Tìm theo chữ Hán, pinyin..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-8 pr-3 py-1.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-red-500"

@@ -7,6 +7,7 @@ import { CallToAction } from './components/CallToAction';
 import { Footer } from './components/Footer';
 import { FloatingSidebar } from './components/FloatingSidebar';
 import { BottomToastBar } from './components/BottomToastBar';
+import { MobileBottomNav } from './components/MobileBottomNav';
 
 // Modals
 import { HskStudyModal } from './components/modals/HskStudyModal';
@@ -278,6 +279,27 @@ export default function App() {
           setSelectedHskLevel(1);
           setActiveModal('hsk');
         }}
+      />
+
+      {/* Mobile Bottom Navigation Bar (iOS / Android App feel) */}
+      <MobileBottomNav
+        activeModal={activeModal}
+        currentUser={currentUser}
+        onGoHome={() => {
+          setActiveModal(null);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        onOpenHsk={() => {
+          setSelectedHskLevel(1);
+          setActiveModal('hsk');
+        }}
+        onOpenDictation={() => setActiveModal('dictation')}
+        onOpenAiTutor={() => setActiveModal('aitutor')}
+        onOpenAuthOrProfile={() => {
+          setAuthMode('login');
+          setActiveModal('auth');
+        }}
+        onOpenAccountSheet={() => setActiveModal('account_sheet')}
       />
 
       {/* Interactive Modals */}

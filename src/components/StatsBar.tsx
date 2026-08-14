@@ -42,26 +42,28 @@ export const StatsBar: React.FC = () => {
   ];
 
   return (
-    <section className="py-12 bg-slate-50 border-t border-b border-red-100/60">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <section className="py-8 sm:py-12 bg-slate-50 border-t border-b border-red-100/60">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
           {stats.map((stat, idx) => {
             const Icon = stat.icon;
             return (
               <div 
                 key={idx}
-                className="bg-white rounded-2xl p-6 border border-slate-200 shadow-2xs hover:shadow-xl hover:border-red-200 hover:-translate-y-2 transition-all duration-300 ease-out will-change-transform cursor-default group"
+                className="bg-white rounded-2xl p-4 sm:p-6 border border-slate-200 shadow-2xs hover:shadow-xl hover:border-red-200 hover:-translate-y-1.5 transition-all duration-300 ease-out will-change-transform cursor-default group flex flex-col justify-between"
               >
-                <div className={`w-10 h-10 rounded-xl ${stat.bg} ${stat.border} border flex items-center justify-center mb-4`}>
-                  <Icon className={`w-5 h-5 ${stat.color}`} />
+                <div>
+                  <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl ${stat.bg} ${stat.border} border flex items-center justify-center mb-3 sm:mb-4`}>
+                    <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${stat.color}`} />
+                  </div>
+                  <div className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-1">
+                    {stat.count}
+                  </div>
+                  <div className="text-xs sm:text-sm font-bold text-slate-800 mb-1">
+                    {stat.label}
+                  </div>
                 </div>
-                <div className="text-3xl font-black text-slate-900 tracking-tight mb-1">
-                  {stat.count}
-                </div>
-                <div className="text-sm font-bold text-slate-800 mb-1">
-                  {stat.label}
-                </div>
-                <div className="text-xs text-slate-500 leading-relaxed">
+                <div className="text-[11px] sm:text-xs text-slate-500 leading-relaxed line-clamp-2 sm:line-clamp-none mt-1">
                   {stat.description}
                 </div>
               </div>
