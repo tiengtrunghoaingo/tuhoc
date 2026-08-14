@@ -1,0 +1,7 @@
+{
+  "name": "Tiếng Trung Hoài Ngô - Nền Tảng Học Tiếng Trung Trực Tuyến",
+  "description": "Nền tảng e-learning học tiếng Trung toàn diện theo chuẩn HSK 3.0, từ vựng, ngữ pháp, 214 bộ thủ, luyện phát âm, chép chính tả, luyện thi thử và gia sư AI Hoài Ngô.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
