@@ -177,6 +177,110 @@ Trả về JSON duy nhất theo cấu trúc:
   // Master Admin Account Email
   const ADMIN_EMAIL = "canhln1224@gmail.com";
 
+  // API: Verify Email and Account Existence Check
+  app.post("/api/auth/verify-email", (req, res) => {
+    try {
+      const { email } = req.body;
+      if (!email || typeof email !== 'string') {
+        return res.status(400).json({ valid: false, error: "Email không được để trống" });
+      }
+
+      const cleanEmail = email.trim().toLowerCase();
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      
+      if (!emailRegex.test(cleanEmail)) {
+        return res.status(400).json({ valid: false, error: "Định dạng email không hợp lệ. Vui lòng nhập đúng dạng (vd: hoten@gmail.com)" });
+      }
+
+      const domain = cleanEmail.split('@')[1];
+      const isGmail = domain === 'gmail.com' || domain === 'googlemail.com';
+      const existingAccount = accountsDatabase.find(a => a.email.toLowerCase() === cleanEmail);
+
+      return res.json({
+        valid: true,
+        email: cleanEmail,
+        isGmail,
+        exists: Boolean(existingAccount),
+        isAdmin: cleanEmail === ADMIN_EMAIL.toLowerCase(),
+        accountInfo: existingAccount ? {
+          name: existingAccount.name,
+          isVip: existingAccount.isVip,
+          avatar: existingAccount.avatar,
+          provider: existingAccount.provider
+        } : null
+      });
+    } catch (err) {
+      return res.status(500).json({ valid: false, error: "Lỗi kiểm tra email" });
+    }
+  });
+
+  // API: Real Google Sign-in & Authentication Sync
+  app.post("/api/auth/google", (req, res) => {
+    try {
+      const { email, name, avatar, googleId } = req.body;
+      if (!email) {
+        return res.status(400).json({ error: "Email Google là bắt buộc" });
+      }
+
+      const cleanEmail = email.trim().toLowerCase();
+      const isAdmin = cleanEmail === ADMIN_EMAIL.toLowerCase();
+      const nowStr = new Date().toISOString().replace('T', ' ').substring(0, 16);
+
+      let account = accountsDatabase.find(a => a.email.toLowerCase() === cleanEmail);
+
+      if (account) {
+        account.lastLogin = nowStr;
+        account.loginCount += 1;
+        if (name && (!account.name || account.name === 'Học viên Hoài Ngô')) account.name = name;
+        if (avatar && !account.avatar) account.avatar = avatar;
+        account.provider = 'google';
+        account.status = 'active';
+      } else {
+        const nextId = `HV-${1000 + accountsDatabase.length + 1}`;
+        account = {
+          id: isAdmin ? "ADMIN-001" : nextId,
+          name: isAdmin ? "Cảnh LN (Quản Trị Viên)" : (name || cleanEmail.split('@')[0]),
+          email: cleanEmail,
+          avatar: avatar || (isAdmin ? "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" : undefined),
+          provider: 'google',
+          isVip: true,
+          joinedDate: isAdmin ? "2026-05-01" : new Date().toISOString().substring(0, 10),
+          lastLogin: nowStr,
+          loginCount: 1,
+          lessonsCompleted: isAdmin ? 120 : 5,
+          hskWordsLearned: isAdmin ? 1200 : 30,
+          dialoguesLearned: isAdmin ? 50 : 2,
+          writingPracticed: isAdmin ? 350 : 10,
+          dictationsPassed: isAdmin ? 60 : 3,
+          mockExamsDone: isAdmin ? 15 : 1,
+          currentHskTarget: isAdmin ? 6 : 1,
+          avgScore: isAdmin ? 99 : 85,
+          studyTimeHours: isAdmin ? 120.0 : 2.5,
+          status: "active",
+          notes: isAdmin ? "Tài khoản Quản trị viên Tối cao" : "Đăng nhập xác thực qua Google Account"
+        };
+        accountsDatabase.unshift(account);
+      }
+
+      return res.json({
+        success: true,
+        isAdmin,
+        user: {
+          id: account.id,
+          name: account.name,
+          email: account.email,
+          avatar: account.avatar,
+          provider: 'google',
+          isVip: account.isVip,
+          joinedDate: account.joinedDate
+        }
+      });
+    } catch (err: any) {
+      console.error("Google Auth Error:", err);
+      return res.status(500).json({ error: "Lỗi đăng nhập Google" });
+    }
+  });
+
   let accountsDatabase: ServerAccountRecord[] = [
     {
       id: "ADMIN-001",
